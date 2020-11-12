@@ -14,20 +14,26 @@ project(crypto_messenger)
 string(APPEND CMAKE_CXX_FLAGS " -pedantic -Werror -Wall -Wextra")
 
 hunter_add_package(GTest)
+hunter_add_package(Boost COMPONENTS system regex)
+
 find_package(GTest CONFIG REQUIRED)
+find_package(Boost CONFIG REQUIRED system regex)
 
 add_library(crypto_messenger STATIC
         client/include/include.hpp
-        client/sources/source.cpp)
+        client/sources/source.cpp server/include/config.hpp)
 add_executable(tests
         tests/test.cpp)
 add_executable(crypto_messenger_server
-        server/include/include.hpp
-        server/sources/source.cpp)
+        server/sources/source.cpp
+        server/include/config.hpp
+        )
 
-target_include_directories(crypto_messenger PUBLIC client/include)
-target_include_directories(crypto_messenger_server PUBLIC server/include)
+target_include_directories(crypto_messenger PUBLIC client/include ${Boost_INCLUDE_DIRS})
+target_include_directories(crypto_messenger_server PUBLIC server/include ${Boost_INCLUDE_DIRS})
 target_include_directories(tests PUBLIC client/include)
+
+target_link_libraries(crypto_messenger_server ${Boost_LIBRARIES})
 target_link_libraries(tests GTest::main crypto_messenger)
 
 enable_testing()
