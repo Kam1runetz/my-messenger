@@ -26,6 +26,7 @@ add_executable(crypto_messenger_server
         server/sources/source.cpp)
 
 target_include_directories(crypto_messenger PUBLIC client/include)
+target_include_directories(crypto_messenger_server PUBLIC server/include)
 target_include_directories(tests PUBLIC client/include)
 target_link_libraries(tests GTest::main crypto_messenger)
 
