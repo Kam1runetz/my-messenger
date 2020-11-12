@@ -1,0 +1,10 @@
+//
+// Created by w1ckedente on 12.11.2020.
+//
+
+#ifndef CRYPTO_MESSENGER_INCLUDE_HPP
+#define CRYPTO_MESSENGER_INCLUDE_HPP
+
+
+
+#endif //CRYPTO_MESSENGER_INCLUDE_HPP
