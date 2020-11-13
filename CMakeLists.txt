@@ -10,7 +10,7 @@ HunterGate(
         SHA1 "9a3594a61227967fb92159339ba326701b287b19"
 )
 
-project(crypto_messenger)
+project(messenger)
 string(APPEND CMAKE_CXX_FLAGS " -pedantic -Werror -Wall -Wextra")
 
 hunter_add_package(GTest)
@@ -19,22 +19,29 @@ hunter_add_package(Boost COMPONENTS system regex)
 find_package(GTest CONFIG REQUIRED)
 find_package(Boost CONFIG REQUIRED system regex)
 
-add_library(crypto_messenger STATIC
+add_library(messenger_client STATIC
         client/include/include.hpp
-        client/sources/source.cpp server/include/config.hpp)
-add_executable(tests
-        tests/test.cpp)
-add_executable(crypto_messenger_server
+        client/sources/source.cpp)
+
+add_library(messenger_server STATIC
         server/sources/source.cpp
-        server/include/config.hpp
-        )
+        server/include/include.hpp)
 
-target_include_directories(crypto_messenger PUBLIC client/include ${Boost_INCLUDE_DIRS})
-target_include_directories(crypto_messenger_server PUBLIC server/include ${Boost_INCLUDE_DIRS})
-target_include_directories(tests PUBLIC client/include)
+add_executable(server_tests
+        server_tests/test.cpp)
 
-target_link_libraries(crypto_messenger_server ${Boost_LIBRARIES})
-target_link_libraries(tests GTest::main crypto_messenger)
+add_executable(client_tests
+        client_tests/test.cpp)
+
+target_include_directories(messenger_client PUBLIC client/include ${Boost_INCLUDE_DIRS} common)
+target_include_directories(messenger_server PUBLIC server/include ${Boost_INCLUDE_DIRS} common)
+target_include_directories(server_tests PUBLIC server/include)
+target_include_directories(client_tests PUBLIC client/include)
+
+target_link_libraries(messenger_server ${Boost_LIBRARIES})
+target_link_libraries(server_tests GTest::main messenger_server)
+target_link_libraries(client_tests GTest::main messenger_client)
 
 enable_testing()
-add_test(NAME unit_tests COMMAND tests)
+add_test(NAME unit_tests_server COMMAND server_tests)
+add_test(NAME unit_tests_client COMMAND client_tests)
