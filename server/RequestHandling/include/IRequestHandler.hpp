@@ -1,10 +1,7 @@
-//
-// Created by w1ckedente on 15.11.2020.
-//
+// Copyright 2020 <Kam1runetz notsoserious2017@gmail.com>
 
-#ifndef MESSENGER_IREQUESTHANDLER_HPP
-#define MESSENGER_IREQUESTHANDLER_HPP
-
+#ifndef SERVER_REQUESTHANDLING_INCLUDE_IREQUESTHANDLER_HPP_
+#define SERVER_REQUESTHANDLING_INCLUDE_IREQUESTHANDLER_HPP_
 #include <myprotocol.hpp>
 
 class IRequestHandler {
@@ -13,4 +10,4 @@ public:
     virtual MyProtocolPkg HandleRequest(MyProtocolPkg &request) = 0;
 };
 
-#endif //MESSENGER_IREQUESTHANDLER_HPP
+#endif // SERVER_REQUESTHANDLING_INCLUDE_IREQUESTHANDLER_HPP_

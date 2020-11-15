@@ -49,4 +49,3 @@ target_link_libraries(tests GTest::main messenger_server messenger_client)
 
 enable_testing()
 add_test(NAME unit_tests COMMAND tests)
-

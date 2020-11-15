@@ -1,4 +1,1 @@
-//
-// Created by w1ckedente on 15.11.2020.
-//
-
+// Copyright 2020 <Kam1runetz notsoserious2017@gmail.com>

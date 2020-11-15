@@ -1,10 +1,8 @@
-//
-// Created by w1ckedente on 12.11.2020.
-//
+// Copyright 2020 <Kam1runetz notsoserious2017@gmail.com>
 
-#ifndef CRYPTO_MESSENGER_INCLUDE_HPP
-#define CRYPTO_MESSENGER_INCLUDE_HPP
+#ifndef INCLUDE_INCLUDE_HPP_
+#define INCLUDE_INCLUDE_HPP_
 
 
 
-#endif //CRYPTO_MESSENGER_INCLUDE_HPP
+#endif // INCLUDE_INCLUDE_HPP_

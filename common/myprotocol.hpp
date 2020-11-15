@@ -1,9 +1,7 @@
-//
-// Created by w1ckedente on 13.11.2020.
-//
+// Copyright 2020 <Kam1runetz notsoserious2017@gmail.com>
 
-#ifndef CRYPTO_MESSENGER_MYPROTOCOL_HPP
-#define CRYPTO_MESSENGER_MYPROTOCOL_HPP
+#ifndef COMMON_MYPROTOCOL_HPP_
+#define COMMON_MYPROTOCOL_HPP_
 
 #include <cinttypes>
 #include <myprotocoldefs.hpp>
@@ -84,4 +82,4 @@ struct MyProtocolPkg {
 
 #pragma pack(pop)
 
-#endif //CRYPTO_MESSENGER_MYPROTOCOL_HPP
+#endif // COMMON_MYPROTOCOL_HPP_

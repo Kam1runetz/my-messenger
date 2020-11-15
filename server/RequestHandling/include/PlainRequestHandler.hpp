@@ -1,9 +1,7 @@
-//
-// Created by w1ckedente on 15.11.2020.
-//
+// Copyright 2020 <Kam1runetz notsoserious2017@gmail.com>
 
-#ifndef MESSENGER_PLAINREQUESTHANDLER_HPP
-#define MESSENGER_PLAINREQUESTHANDLER_HPP
+#ifndef SERVER_REQUESTHANDLING_INCLUDE_PLAINREQUESTHANDLER_HPP_
+#define SERVER_REQUESTHANDLING_INCLUDE_PLAINREQUESTHANDLER_HPP_
 
 #include <IRequestHandler.hpp>
 
@@ -12,4 +10,4 @@ public:
     MyProtocolPkg HandleRequest(MyProtocolPkg &request) override;
 };
 
-#endif //MESSENGER_PLAINREQUESTHANDLER_HPP
+#endif // SERVER_REQUESTHANDLING_INCLUDE_PLAINREQUESTHANDLER_HPP_

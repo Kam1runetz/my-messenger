@@ -1,9 +1,7 @@
-//
-// Created by w1ckedente on 13.11.2020.
-//
+// Copyright 2020 <Kam1runetz notsoserious2017@gmail.com>
 
-#ifndef CRYPTO_MESSENGER_MYPROTOCOLDEFS_HPP
-#define CRYPTO_MESSENGER_MYPROTOCOLDEFS_HPP
+#ifndef COMMON_MYPROTOCOLDEFS_HPP_
+#define COMMON_MYPROTOCOLDEFS_HPP_
 
 #include <cinttypes>
 
@@ -17,4 +15,4 @@ const auto MessageLength = 4096;
 
 const auto ResponseOnlineUsersCount = 64;
 
-#endif //CRYPTO_MESSENGER_MYPROTOCOLDEFS_HPP
+#endif // COMMON_MYPROTOCOL_HPP_
