@@ -22,16 +22,19 @@ find_package(GTest CONFIG REQUIRED)
 find_package(Boost CONFIG REQUIRED system)
 
 add_library(messenger_client STATIC
+        common/myprotocol.hpp
+        common/myprotocoldefs.hpp
         client/include/include.hpp
         client/sources/source.cpp)
 
 add_library(messenger_server STATIC
+        common/myprotocol.hpp
+        common/myprotocoldefs.hpp
         server/ConnectionServer/include/Server.hpp
         server/ConnectionServer/sources/Server.cpp
         server/RequestHandling/include/IRequestHandler.hpp
         server/RequestHandling/include/PlainRequestHandler.hpp
-        server/RequestHandling/sources/PlainRequestHandler.cpp
-        )
+        server/RequestHandling/sources/PlainRequestHandler.cpp)
 
 add_executable(tests
         tests/test.cpp)
