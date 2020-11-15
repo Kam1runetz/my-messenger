@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.18)
+cmake_minimum_required(VERSION 3.4)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -27,6 +27,8 @@ add_library(messenger_server STATIC
         server/ConnectionServer/include/Server.hpp
         server/ConnectionServer/sources/Server.cpp
         server/RequestHandling/include/IRequestHandler.hpp
+        server/RequestHandling/include/PlainRequestHandler.hpp
+        server/RequestHandling/sources/PlainRequestHandler.cpp
         )
 
 add_executable(server_tests
@@ -49,3 +51,4 @@ target_link_libraries(client_tests GTest::main messenger_client)
 enable_testing()
 add_test(NAME unit_tests_server COMMAND server_tests)
 add_test(NAME unit_tests_client COMMAND client_tests)
+
