@@ -11,7 +11,7 @@ HunterGate(
 )
 
 project(messenger)
-string(APPEND CMAKE_CXX_FLAGS " -pedantic -Werror -Wall -Wextra")
+string(APPEND CMAKE_CXX_FLAGS " -pedantic -Wall -Wextra")
 
 hunter_add_package(GTest)
 hunter_add_package(Boost COMPONENTS system regex)
@@ -24,18 +24,21 @@ add_library(messenger_client STATIC
         client/sources/source.cpp)
 
 add_library(messenger_server STATIC
-        server/sources/source.cpp
-        server/include/include.hpp)
+        server/ConnectionServer/include/Server.hpp
+        server/ConnectionServer/sources/Server.cpp
+        server/RequestHandling/include/IRequestHandler.hpp
+        )
 
 add_executable(server_tests
         server_tests/test.cpp)
 
 add_executable(client_tests
-        client_tests/test.cpp)
+        client_tests/test.cpp server/RequestHandling/sources/PlainRequestHandler.cpp server/RequestHandling/include/PlainRequestHandler.hpp)
 
 target_include_directories(messenger_client PUBLIC client/include ${Boost_INCLUDE_DIRS} common)
-target_include_directories(messenger_server PUBLIC server/include ${Boost_INCLUDE_DIRS} common)
-target_include_directories(server_tests PUBLIC server/include)
+target_include_directories(messenger_server PUBLIC server/ConnectionServer/include
+        server/RequestHandling/include ${Boost_INCLUDE_DIRS} common)
+target_include_directories(server_tests PUBLIC server/ConnectionServer/include server/RequestHandling/include)
 target_include_directories(client_tests PUBLIC client/include)
 
 target_link_libraries(messenger_server ${Boost_LIBRARIES})
