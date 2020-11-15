@@ -34,7 +34,11 @@ add_library(messenger_server STATIC
         server/ConnectionServer/sources/Server.cpp
         server/RequestHandling/include/IRequestHandler.hpp
         server/RequestHandling/include/PlainRequestHandler.hpp
-        server/RequestHandling/sources/PlainRequestHandler.cpp)
+        server/RequestHandling/sources/PlainRequestHandler.cpp
+        server/ConnectionServer/include/Connection.hpp
+        server/ConnectionServer/sources/Connection.cpp
+        server/ConnectionServer/include/ConnectionManager.hpp
+        server/ConnectionServer/sources/ConnectionManager.cpp)
 
 add_executable(tests
         tests/test.cpp)

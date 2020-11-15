@@ -7,7 +7,7 @@
 
 class PlainRequestHandler : public IRequestHandler {
 public:
-    MyProtocolPkg HandleRequest(MyProtocolPkg &request) override;
+    [[nodiscard]] int HandleRequest(MyProtocolPkg &request, MyProtocolPkg &response) override;
 };
 
 #endif // SERVER_REQUESTHANDLING_INCLUDE_PLAINREQUESTHANDLER_HPP_
