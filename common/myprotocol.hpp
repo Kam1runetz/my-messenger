@@ -46,12 +46,18 @@ struct MessagePkg {
     std::uint8_t Message[MessageLength];
 };
 
-struct SignInPkg {};
-struct SignOutPkg {};
-struct RegistrationPkg {};
-struct RequestOnlineUsersPkg {};
-struct PingPkg {};
-struct PongPkg {};
+struct SignInPkg {
+};
+struct SignOutPkg {
+};
+struct RegistrationPkg {
+};
+struct RequestOnlineUsersPkg {
+};
+struct PingPkg {
+};
+struct PongPkg {
+};
 
 struct ResponseOnlineUsers {
     std::uint8_t OnlineUsers[UserNameLength][ResponseOnlineUsersCount];
@@ -64,14 +70,14 @@ struct ControlSum {
 };
 
 union PkgContent {
-    SignInPkg;
-    SignOutPkg;
-    RegistrationPkg;
-    ResponseOnlineUsers;
-    RequestOnlineUsersPkg;
-    MessagePkg;
-    PingPkg;
-    PongPkg;
+    SignInPkg signInPkg;
+    SignOutPkg signOutPkg;
+    RegistrationPkg registrationPkg;
+    ResponseOnlineUsers responseOnlineUsers;
+    RequestOnlineUsersPkg requestOnlineUsersPkg;
+    MessagePkg messagePkg;
+    PingPkg pingPkg;
+    PongPkg pongPkg;
 };
 
 struct MyProtocolPkg {

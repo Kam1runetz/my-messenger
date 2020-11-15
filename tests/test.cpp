@@ -5,4 +5,3 @@
 TEST(Empty, EmptyTest) {
     EXPECT_TRUE(true);
 }
-
