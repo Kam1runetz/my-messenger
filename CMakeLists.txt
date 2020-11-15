@@ -31,24 +31,22 @@ add_library(messenger_server STATIC
         server/RequestHandling/sources/PlainRequestHandler.cpp
         )
 
-add_executable(server_tests
-        server_tests/test.cpp)
+add_executable(tests
+        tests/test.cpp)
 
-add_executable(client_tests
-        client_tests/test.cpp)
 
 target_include_directories(messenger_client PUBLIC client/include ${Boost_INCLUDE_DIRS} common)
 target_include_directories(messenger_server PUBLIC server/ConnectionServer/include
         server/RequestHandling/include ${Boost_INCLUDE_DIRS} common)
 
-target_include_directories(server_tests PUBLIC server/ConnectionServer/include server/RequestHandling/include)
-target_include_directories(client_tests PUBLIC client/include)
+target_include_directories(tests PUBLIC
+        server/ConnectionServer/include
+        server/RequestHandling/include
+        client/include)
 
 target_link_libraries(messenger_server ${Boost_LIBRARIES})
-target_link_libraries(server_tests GTest::main messenger_server)
-target_link_libraries(client_tests GTest::main messenger_client)
+target_link_libraries(tests GTest::main messenger_server messenger_client)
 
 enable_testing()
-add_test(NAME unit_tests_server COMMAND server_tests)
-add_test(NAME unit_tests_client COMMAND client_tests)
+add_test(NAME unit_tests COMMAND tests)
 
