@@ -19,7 +19,8 @@ jobs:
     - docker run --env-file .env -v `pwd`:`pwd` -w `pwd` -t rusdevops/bootstrap-cpp scripts/coverage.sh
 
 notifications:
-    email: true
+    email: 
+      - notsoserious2017@gmail.com
 
 branches:
   only:
