@@ -1,5 +1,5 @@
 FROM ubuntu:18.04
-LABEL maintainer="rusdevops@gmail.com"
+LABEL maintainer="notsoserious2017@gmail.com"
 
 RUN apt update && apt install -y software-properties-common && \
     apt-add-repository -y "ppa:ubuntu-toolchain-r/test" && apt update && \
