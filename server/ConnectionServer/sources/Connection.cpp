@@ -31,7 +31,7 @@ void Connection::Stop() {
 void Connection::handleRead(const boost::system::error_code &err, std::size_t bytesTransferred) {
     if (!err) {
         if (bytesTransferred != sizeof(MyProtocolPkg)) return;
-        MyProtocolPkg pkg = *(MyProtocolPkg *) (buffer.data());
+        MyProtocolPkg pkg = *reinterpret_cast<MyProtocolPkg *>(buffer.data());
         int requestHandlingError = requestHandler->HandleRequest(pkg, response);
         if (requestHandlingError) return;
         // todo response to buffer and async write
