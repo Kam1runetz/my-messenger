@@ -33,11 +33,12 @@ add_executable(server_tests
         server_tests/test.cpp)
 
 add_executable(client_tests
-        client_tests/test.cpp server/RequestHandling/sources/PlainRequestHandler.cpp server/RequestHandling/include/PlainRequestHandler.hpp)
+        client_tests/test.cpp)
 
 target_include_directories(messenger_client PUBLIC client/include ${Boost_INCLUDE_DIRS} common)
 target_include_directories(messenger_server PUBLIC server/ConnectionServer/include
         server/RequestHandling/include ${Boost_INCLUDE_DIRS} common)
+
 target_include_directories(server_tests PUBLIC server/ConnectionServer/include server/RequestHandling/include)
 target_include_directories(client_tests PUBLIC client/include)
 
