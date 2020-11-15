@@ -3,6 +3,8 @@ cmake_minimum_required(VERSION 3.4)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+option(BUILD_COVERAGE "Build coverage" OFF)
+
 include("tools/gate/cmake/HunterGate.cmake")
 
 HunterGate(
@@ -49,3 +51,14 @@ target_link_libraries(tests GTest::main messenger_server messenger_client)
 
 enable_testing()
 add_test(NAME unit_tests COMMAND tests)
+
+if (BUILD_COVERAGE)
+    set(ENABLE_COVERAGE ON CACHE BOOL "Enable coverage build." FORCE)
+    list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
+    find_package(codecov)
+    add_coverage(messenger_server)
+    add_coverage(messenger_client)
+    add_coverage(tests)
+    list(APPEND LCOV_REMOVE_PATTERNS "'${PROJECT_SOURCE_DIR}/tests/*'")
+    coverage_evaluate()
+endif()
