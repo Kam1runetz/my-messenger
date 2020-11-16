@@ -9,6 +9,7 @@
 
 class ConnectionManager {
  public:
+  ConnectionManager() = default;
   ConnectionManager(const ConnectionManager &) = delete;
   ConnectionManager &operator=(const ConnectionManager &) = delete;
   void Start(std::shared_ptr<Connection> connection);
