@@ -4,6 +4,8 @@
 #include <ConnectionManager.hpp>
 #include <boost/asio.hpp>
 #include <boost/bind.hpp>
+// todo delete this
+#include <iostream>
 
 // todo: logging errors
 
@@ -24,14 +26,25 @@ void Connection::Start() {
                   boost::asio::placeholders::bytes_transferred));
 }
 
-void Connection::Stop() { socket.close(); }
+void Connection::Stop() {
+  // todo debug
+  std::cout << "Connection closed" << std::endl;
+  socket.close();
+}
 
 void Connection::handleRead(const boost::system::error_code &err,
                             std::size_t bytesTransferred) {
   if (!err) {
     if (bytesTransferred != sizeof(MyProtocolPkg)) return;
     MyProtocolPkg pkg = *reinterpret_cast<MyProtocolPkg *>(buffer.data());
+    // todo debug
+    std::cout << "New message: " << pkg.Content.messagePkg.Message << std::endl;
     int requestHandlingError = requestHandler->HandleRequest(pkg, response);
+    // todo
+    // if (requestHandlingError == ErrCloseConnection) {
+    //   connectionManager.Stop(shared_from_this())
+    //   return;
+    // }
     if (requestHandlingError) return;
     boost::asio::async_write(
         socket, boost::asio::buffer(&response, sizeof(MyProtocolPkg)),
@@ -46,9 +59,7 @@ void Connection::handleRead(const boost::system::error_code &err,
 
 void Connection::handleWrite(const boost::system::error_code &err) {
   if (!err) {
-    boost::system::error_code ignoredErrCode;
-    socket.shutdown(boost::asio::ip::tcp::socket::shutdown_both,
-                    ignoredErrCode);
+    Start();
   } else if (err != boost::asio::error::operation_aborted) {
     connectionManager.Stop(shared_from_this());
   } else {

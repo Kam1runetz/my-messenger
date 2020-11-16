@@ -44,6 +44,11 @@ add_library(messenger_server STATIC
 add_executable(tests
         tests/test.cpp)
 
+# todo delete this
+add_executable(echo_client main.cpp main.cpp)
+target_include_directories(echo_client PUBLIC ${Boost_INCLUDE_DIRS} common)
+target_link_libraries(echo_client ${Boost_LIBRARIES})
+
 
 target_include_directories(messenger_client PUBLIC client/include ${Boost_INCLUDE_DIRS} common)
 target_include_directories(messenger_server PUBLIC server/ConnectionServer/include

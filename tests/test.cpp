@@ -13,7 +13,7 @@ const char port[] = "4567";
 TEST(Empty, EmptyTest) {
   Server server(address, port, new PlainRequestHandler);
   std::thread serverThread(&Server::Run, &server);
-  std::this_thread::sleep_for(std::chrono::seconds(60));
+  std::this_thread::sleep_for(std::chrono::seconds(120));
   server.Stop();
   serverThread.join();
   EXPECT_TRUE(true);
