@@ -3,36 +3,37 @@
 #ifndef SERVER_CONNECTIONSERVER_INCLUDE_SERVER_HPP_
 #define SERVER_CONNECTIONSERVER_INCLUDE_SERVER_HPP_
 
-#include <boost/noncopyable.hpp>
-#include <boost/asio.hpp>
-#include <myprotocol.hpp>
-#include <myprotocoldefs.hpp>
-#include <IRequestHandler.hpp>
 #include <Connection.hpp>
 #include <ConnectionManager.hpp>
+#include <IRequestHandler.hpp>
+#include <boost/asio.hpp>
+#include <boost/noncopyable.hpp>
 #include <memory>
+#include <myprotocol.hpp>
+#include <myprotocoldefs.hpp>
 
 class Server : private boost::noncopyable {
-public:
-    explicit Server(const char address[], const char port[], IRequestHandler *requestHandler);
+ public:
+  explicit Server(const char address[], const char port[],
+                  IRequestHandler *requestHandler);
 
-    ~Server() = default;
+  ~Server() = default;
 
-    void Run();
+  void Run();
 
-    void Stop();
+  void Stop();
 
-private:
-    void handleAccept(const boost::system::error_code &e);
+ private:
+  void handleAccept(const boost::system::error_code &e);
 
-    void handleStop();
+  void handleStop();
 
-    boost::asio::io_service ioService;
-    boost::asio::ip::tcp::acceptor acceptor;
+  boost::asio::io_service ioService;
+  boost::asio::ip::tcp::acceptor acceptor;
 
-    ConnectionManager connectionManager;
-    std::shared_ptr<IRequestHandler> requestHandler;
-    std::shared_ptr<Connection> newConnection;
+  ConnectionManager connectionManager;
+  std::shared_ptr<IRequestHandler> requestHandler;
+  std::shared_ptr<Connection> newConnection;
 };
 
-#endif // SERVER_CONNECTIONSERVER_INCLUDE_SERVER_HPP_
+#endif  // SERVER_CONNECTIONSERVER_INCLUDE_SERVER_HPP_

@@ -2,6 +2,7 @@
 
 #include <PlainRequestHandler.hpp>
 
-int PlainRequestHandler::HandleRequest(MyProtocolPkg &request, MyProtocolPkg &response) {
-    return 0;
+int PlainRequestHandler::HandleRequest(MyProtocolPkg &request,
+                                       MyProtocolPkg &response) {
+  return 0;
 }
