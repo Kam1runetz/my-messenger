@@ -15,8 +15,8 @@ enum MyProtocolPkgType : std::uint8_t {
   PkgTypeMessage,
   PkgTypeRequestOnlineUsers,
   PkgTypeResponseOnlineUsers,
-  PkgPingPkg,
-  PkgPongPkg
+  PkgPing,
+  PkgPong
 };
 
 enum MyProtocolErrors : std::uint8_t {

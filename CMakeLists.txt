@@ -25,16 +25,17 @@ add_library(messenger_client STATIC
         common/myprotocol.hpp
         common/myprotocoldefs.hpp
         client/include/Client.hpp
-        client/sources/Client.cpp)
+        client/sources/Client.cpp
+        )
 
 add_library(messenger_server STATIC
         common/myprotocol.hpp
         common/myprotocoldefs.hpp
         server/ConnectionServer/include/Server.hpp
         server/ConnectionServer/sources/Server.cpp
-        server/MessengerServer/include/IRequestHandler.hpp
-        server/MessengerServer/include/PlainRequestHandler.hpp
-        server/MessengerServer/sources/PlainRequestHandler.cpp
+        server/ApplicationServer/include/IRequestHandler.hpp
+        server/ApplicationServer/include/PlainRequestHandler.hpp
+        server/ApplicationServer/sources/PlainRequestHandler.cpp
         server/ConnectionServer/include/Connection.hpp
         server/ConnectionServer/sources/Connection.cpp
         server/ConnectionServer/include/ConnectionManager.hpp
@@ -52,13 +53,14 @@ target_link_libraries(echo_client ${Boost_LIBRARIES})
 
 target_include_directories(messenger_client PUBLIC client/include ${Boost_INCLUDE_DIRS} common)
 target_include_directories(messenger_server PUBLIC server/ConnectionServer/include
-        server/MessengerServer/include ${Boost_INCLUDE_DIRS} common)
+        server/ApplicationServer/include ${Boost_INCLUDE_DIRS} common)
 
 target_include_directories(tests PUBLIC
         server/ConnectionServer/include
-        server/MessengerServer/include
+        server/ApplicationServer/include
         client/include
-        common/)
+        common/
+        )
 
 target_link_libraries(messenger_server ${Boost_LIBRARIES})
 target_link_libraries(tests GTest::main messenger_server messenger_client)
