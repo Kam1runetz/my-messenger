@@ -16,10 +16,10 @@ project(messenger)
 string(APPEND CMAKE_CXX_FLAGS "-lpthread -pedantic -Wall -Wextra")
 
 hunter_add_package(GTest)
-hunter_add_package(Boost COMPONENTS system log)
+hunter_add_package(Boost COMPONENTS system)
 
 find_package(GTest CONFIG REQUIRED)
-find_package(Boost CONFIG REQUIRED system log)
+find_package(Boost CONFIG REQUIRED system)
 
 add_library(messenger_client STATIC
         common/myprotocol.hpp

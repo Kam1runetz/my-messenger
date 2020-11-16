@@ -4,10 +4,6 @@
 #include <ConnectionManager.hpp>
 #include <boost/asio.hpp>
 #include <boost/bind.hpp>
-// todo delete this
-#include <iostream>
-
-// todo: logging errors
 
 Connection::Connection(boost::asio::io_service &ioService,
                        ConnectionManager &manager,
@@ -27,8 +23,6 @@ void Connection::Start() {
 }
 
 void Connection::Stop() {
-  // todo debug
-  std::cout << "Connection closed" << std::endl;
   socket.close();
 }
 
@@ -37,10 +31,7 @@ void Connection::handleRead(const boost::system::error_code &err,
   if (!err) {
     if (bytesTransferred != sizeof(MyProtocolPkg)) return;
     MyProtocolPkg pkg = *reinterpret_cast<MyProtocolPkg *>(buffer.data());
-    // todo debug
-    std::cout << "New message: " << pkg.Content.messagePkg.Message << std::endl;
-    int requestHandlingError = requestHandler->HandleRequest(pkg, response);
-    if (requestHandlingError) return;
+    requestHandler->HandleRequest(pkg, response);
     boost::asio::async_write(
         socket, boost::asio::buffer(&response, sizeof(MyProtocolPkg)),
         boost::bind(&Connection::handleWrite, shared_from_this(),
