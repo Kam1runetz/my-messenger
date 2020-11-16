@@ -32,9 +32,9 @@ add_library(messenger_server STATIC
         common/myprotocoldefs.hpp
         server/ConnectionServer/include/Server.hpp
         server/ConnectionServer/sources/Server.cpp
-        server/AppServer/include/IRequestHandler.hpp
-        server/AppServer/include/PlainRequestHandler.hpp
-        server/AppServer/sources/PlainRequestHandler.cpp
+        server/MessengerServer/include/IRequestHandler.hpp
+        server/MessengerServer/include/PlainRequestHandler.hpp
+        server/MessengerServer/sources/PlainRequestHandler.cpp
         server/ConnectionServer/include/Connection.hpp
         server/ConnectionServer/sources/Connection.cpp
         server/ConnectionServer/include/ConnectionManager.hpp
@@ -47,11 +47,11 @@ add_executable(tests
 
 target_include_directories(messenger_client PUBLIC client/include ${Boost_INCLUDE_DIRS} common)
 target_include_directories(messenger_server PUBLIC server/ConnectionServer/include
-        server/AppServer/include ${Boost_INCLUDE_DIRS} common)
+        server/MessengerServer/include ${Boost_INCLUDE_DIRS} common)
 
 target_include_directories(tests PUBLIC
         server/ConnectionServer/include
-        server/AppServer/include
+        server/MessengerServer/include
         client/include
         common/)
 
