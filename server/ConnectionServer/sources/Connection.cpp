@@ -40,11 +40,6 @@ void Connection::handleRead(const boost::system::error_code &err,
     // todo debug
     std::cout << "New message: " << pkg.Content.messagePkg.Message << std::endl;
     int requestHandlingError = requestHandler->HandleRequest(pkg, response);
-    // todo
-    // if (requestHandlingError == ErrCloseConnection) {
-    //   connectionManager.Stop(shared_from_this())
-    //   return;
-    // }
     if (requestHandlingError) return;
     boost::asio::async_write(
         socket, boost::asio::buffer(&response, sizeof(MyProtocolPkg)),
@@ -52,8 +47,6 @@ void Connection::handleRead(const boost::system::error_code &err,
                     boost::asio::placeholders::error));
   } else if (err != boost::asio::error::operation_aborted) {
     connectionManager.Stop(shared_from_this());
-  } else {
-    // todo logging
   }
 }
 
@@ -62,7 +55,5 @@ void Connection::handleWrite(const boost::system::error_code &err) {
     Start();
   } else if (err != boost::asio::error::operation_aborted) {
     connectionManager.Stop(shared_from_this());
-  } else {
-    // todo logging
   }
 }

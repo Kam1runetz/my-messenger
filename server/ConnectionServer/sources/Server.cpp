@@ -37,8 +37,6 @@ void Server::handleAccept(const boost::system::error_code &e) {
     acceptor.async_accept(newConnection->Socket(),
                           boost::bind(&Server::handleAccept, this,
                                       boost::asio::placeholders::error));
-  } else {
-    // todo logging
   }
 }
 

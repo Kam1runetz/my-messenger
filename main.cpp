@@ -28,13 +28,17 @@ int main(int argc, char **argv) {
   memcpy(pkg.Content.messagePkg.Message, message.c_str(), MessageLength);
 
   for (int i = 0; i < 10; ++i) {
-    boost::asio::write(socket,
-                       boost::asio::buffer(&pkg, sizeof(MyProtocolPkg)));
-    boost::asio::read(socket,
-                      boost::asio::buffer(&recv, sizeof(MyProtocolPkg)));
-    std::cout << "[" << i << "] Received: " << recv.Content.messagePkg.Message
-              << std::endl;
-    std::this_thread::sleep_for(std::chrono::seconds(5));
+    try {
+      boost::asio::write(socket,
+                         boost::asio::buffer(&pkg, sizeof(MyProtocolPkg)));
+      boost::asio::read(socket,
+                        boost::asio::buffer(&recv, sizeof(MyProtocolPkg)));
+      std::cout << "[" << i << "] Received: " << recv.Content.messagePkg.Message
+                << std::endl;
+      std::this_thread::sleep_for(std::chrono::seconds(5));
+    } catch (std::exception &e) {
+      std::cout << "Exception: " << e.what() << std::endl;
+    }
   }
   socket.close();
   return 0;
