@@ -12,10 +12,6 @@ class IRequestHandler {
 
   [[nodiscard]] virtual int HandleRequest(MyProtocolPkg &request,
                                           MyProtocolPkg &response) = 0;
-  static void *PkgToBytes(MyProtocolPkg &pkg) {
-    void *bytes = new std::uint8_t[sizeof(pkg)];
-    return bytes;
-  }
 };
 
 #endif  // SERVER_REQUESTHANDLING_INCLUDE_IREQUESTHANDLER_HPP_
