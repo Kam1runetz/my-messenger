@@ -4,11 +4,7 @@
 
 #include <PlainRequestHandler.hpp>
 #include <Server.hpp>
-#include <boost/asio.hpp>
-#include <boost/log/trivial.hpp>
 #include <chrono>
-#include <cstring>
-#include <myprotocol.hpp>
 #include <thread>
 
 const char address[] = "localhost";
@@ -20,6 +16,5 @@ TEST(Empty, EmptyTest) {
   std::this_thread::sleep_for(std::chrono::seconds(60));
   server.Stop();
   serverThread.join();
-
   EXPECT_TRUE(true);
 }

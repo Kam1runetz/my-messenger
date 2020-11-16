@@ -3,8 +3,8 @@
 #ifndef SERVER_REQUESTHANDLING_INCLUDE_IREQUESTHANDLER_HPP_
 #define SERVER_REQUESTHANDLING_INCLUDE_IREQUESTHANDLER_HPP_
 
-#include <myprotocol.hpp>
 #include <boost/asio/buffer.hpp>
+#include <myprotocol.hpp>
 
 class IRequestHandler {
  public:

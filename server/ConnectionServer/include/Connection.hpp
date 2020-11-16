@@ -6,18 +6,18 @@
 #include <IRequestHandler.hpp>
 #include <array>
 #include <boost/asio.hpp>
-#include <boost/noncopyable.hpp>
 #include <memory>
 #include <myprotocol.hpp>
 
 class ConnectionManager;
 
-class Connection : public std::enable_shared_from_this<Connection>,
-                   private boost::noncopyable {
+class Connection : public std::enable_shared_from_this<Connection> {
  public:
   explicit Connection(boost::asio::io_service &ioService,
                       ConnectionManager &manager,
                       std::shared_ptr<IRequestHandler> requestHandler);
+  Connection(const Connection &) = delete;
+  Connection &operator=(const Connection &) = delete;
 
   boost::asio::ip::tcp::socket &Socket();
 

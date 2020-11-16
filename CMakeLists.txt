@@ -24,8 +24,8 @@ find_package(Boost CONFIG REQUIRED system log)
 add_library(messenger_client STATIC
         common/myprotocol.hpp
         common/myprotocoldefs.hpp
-        client/include/EchoClient.hpp
-        client/sources/EchoClient.cpp)
+        client/include/Client.hpp
+        client/sources/Client.cpp)
 
 add_library(messenger_server STATIC
         common/myprotocol.hpp
@@ -39,8 +39,7 @@ add_library(messenger_server STATIC
         server/ConnectionServer/sources/Connection.cpp
         server/ConnectionServer/include/ConnectionManager.hpp
         server/ConnectionServer/sources/ConnectionManager.cpp
-        server/ConnectionServer/include/Logger.hpp
-        server/ConnectionServer/sources/Logger.cpp)
+        )
 
 add_executable(tests
         tests/test.cpp)

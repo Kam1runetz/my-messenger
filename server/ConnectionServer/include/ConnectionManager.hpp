@@ -4,12 +4,13 @@
 #define SERVER_CONNECTIONSERVER_INCLUDE_CONNECTIONMANAGER_HPP_
 
 #include <Connection.hpp>
-#include <boost/noncopyable.hpp>
 #include <memory>
 #include <set>
 
-class ConnectionManager : private boost::noncopyable {
+class ConnectionManager {
  public:
+  ConnectionManager(const ConnectionManager &) = delete;
+  ConnectionManager &operator=(const ConnectionManager &) = delete;
   void Start(std::shared_ptr<Connection> connection);
   void Stop(std::shared_ptr<Connection> connection);
 

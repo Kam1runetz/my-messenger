@@ -7,15 +7,15 @@
 #include <ConnectionManager.hpp>
 #include <IRequestHandler.hpp>
 #include <boost/asio.hpp>
-#include <boost/noncopyable.hpp>
 #include <memory>
-#include <myprotocol.hpp>
-#include <myprotocoldefs.hpp>
 
-class Server : private boost::noncopyable {
+class Server {
  public:
   explicit Server(const char address[], const char port[],
                   IRequestHandler *requestHandler);
+
+  Server(const Server &) = delete;
+  Server &operator=(const Server &) = delete;
 
   ~Server() = default;
 

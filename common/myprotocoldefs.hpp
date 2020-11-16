@@ -15,4 +15,4 @@ const auto MessageLength = 4096;
 
 const auto ResponseOnlineUsersCount = 64;
 
-#endif // COMMON_MYPROTOCOLDEFS_HPP_
+#endif  // COMMON_MYPROTOCOLDEFS_HPP_
