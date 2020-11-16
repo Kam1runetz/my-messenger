@@ -3,9 +3,6 @@
 #include <Server.hpp>
 #include <boost/bind.hpp>
 
-// todo delete this
-#include <iostream>
-
 Server::Server(const char *address, const char *port,
                IRequestHandler *aRequestHandler)
     : ioService(),
@@ -15,7 +12,8 @@ Server::Server(const char *address, const char *port,
       newConnection(
           new Connection(ioService, connectionManager, requestHandler)) {
   boost::asio::ip::tcp::resolver resolver(ioService);
-  boost::asio::ip::tcp::resolver::query query(address, port);
+  boost::asio::ip::tcp::resolver::query query(boost::asio::ip::tcp::v4(),
+                                              address, port);
   boost::asio::ip::tcp::endpoint endpoint = *resolver.resolve(query);
 
   acceptor.open(endpoint.protocol());
@@ -39,6 +37,8 @@ void Server::handleAccept(const boost::system::error_code &e) {
     acceptor.async_accept(newConnection->Socket(),
                           boost::bind(&Server::handleAccept, this,
                                       boost::asio::placeholders::error));
+  } else {
+    // todo logging
   }
 }
 

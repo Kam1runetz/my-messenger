@@ -33,12 +33,8 @@ void Connection::handleRead(const boost::system::error_code &err,
     MyProtocolPkg pkg = *reinterpret_cast<MyProtocolPkg *>(buffer.data());
     int requestHandlingError = requestHandler->HandleRequest(pkg, response);
     if (requestHandlingError) return;
-    // todo response to buffer and async write
-    void *responseBytes = nullptr;
-    auto responseBuffer =
-        boost::asio::buffer(responseBytes, sizeof(MyProtocolPkg));
     boost::asio::async_write(
-        socket, responseBuffer,
+        socket, boost::asio::buffer(&response, sizeof(MyProtocolPkg)),
         boost::bind(&Connection::handleWrite, shared_from_this(),
                     boost::asio::placeholders::error));
   } else if (err != boost::asio::error::operation_aborted) {

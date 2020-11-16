@@ -13,19 +13,19 @@ HunterGate(
 )
 
 project(messenger)
-string(APPEND CMAKE_CXX_FLAGS " -pedantic -Wall -Wextra")
+string(APPEND CMAKE_CXX_FLAGS "-lpthread -pedantic -Wall -Wextra")
 
 hunter_add_package(GTest)
-hunter_add_package(Boost COMPONENTS system)
+hunter_add_package(Boost COMPONENTS system log)
 
 find_package(GTest CONFIG REQUIRED)
-find_package(Boost CONFIG REQUIRED system)
+find_package(Boost CONFIG REQUIRED system log)
 
 add_library(messenger_client STATIC
         common/myprotocol.hpp
         common/myprotocoldefs.hpp
-        client/include/include.hpp
-        client/sources/source.cpp)
+        client/include/EchoClient.hpp
+        client/sources/EchoClient.cpp)
 
 add_library(messenger_server STATIC
         common/myprotocol.hpp
@@ -38,7 +38,9 @@ add_library(messenger_server STATIC
         server/ConnectionServer/include/Connection.hpp
         server/ConnectionServer/sources/Connection.cpp
         server/ConnectionServer/include/ConnectionManager.hpp
-        server/ConnectionServer/sources/ConnectionManager.cpp)
+        server/ConnectionServer/sources/ConnectionManager.cpp
+        server/ConnectionServer/include/Logger.hpp
+        server/ConnectionServer/sources/Logger.cpp)
 
 add_executable(tests
         tests/test.cpp)
@@ -51,7 +53,8 @@ target_include_directories(messenger_server PUBLIC server/ConnectionServer/inclu
 target_include_directories(tests PUBLIC
         server/ConnectionServer/include
         server/RequestHandling/include
-        client/include)
+        client/include
+        common/)
 
 target_link_libraries(messenger_server ${Boost_LIBRARIES})
 target_link_libraries(tests GTest::main messenger_server messenger_client)
@@ -68,4 +71,4 @@ if (BUILD_COVERAGE)
     add_coverage(tests)
     list(APPEND LCOV_REMOVE_PATTERNS "'${PROJECT_SOURCE_DIR}/tests/*'")
     coverage_evaluate()
-endif()
+endif ()
