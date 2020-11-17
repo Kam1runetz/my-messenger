@@ -32,14 +32,14 @@ add_library(messenger_server STATIC
         common/myprotocoldefs.hpp
         server/ConnectionServer/include/Server.hpp
         server/ConnectionServer/sources/Server.cpp
-        server/MessengerServer/include/IRequestHandler.hpp
-        server/MessengerServer/include/PlainRequestHandler.hpp
-        server/MessengerServer/sources/PlainRequestHandler.cpp
         server/ConnectionServer/include/Connection.hpp
         server/ConnectionServer/sources/Connection.cpp
         server/ConnectionServer/include/ConnectionManager.hpp
         server/ConnectionServer/sources/ConnectionManager.cpp
-        )
+        server/Middleware/include/ServersMiddleware.hpp
+        server/ApplicationServer/include/ApplicationServer.hpp
+        server/ApplicationServer/sources/ApplicationServer.cpp
+        server/Middleware/sources/ServersMiddleware.cpp)
 
 add_executable(tests
         tests/test.cpp)
@@ -49,14 +49,15 @@ add_executable(echo_client main.cpp main.cpp)
 target_include_directories(echo_client PUBLIC ${Boost_INCLUDE_DIRS} common)
 target_link_libraries(echo_client ${Boost_LIBRARIES})
 
+# todo add middleware
 
 target_include_directories(messenger_client PUBLIC client/include ${Boost_INCLUDE_DIRS} common)
 target_include_directories(messenger_server PUBLIC server/ConnectionServer/include
-        server/MessengerServer/include ${Boost_INCLUDE_DIRS} common)
+        server/ApplicationServer/include server/Middleware/include ${Boost_INCLUDE_DIRS} common)
 
 target_include_directories(tests PUBLIC
         server/ConnectionServer/include
-        server/MessengerServer/include
+        server/ApplicationServer/include
         client/include
         common/)
 

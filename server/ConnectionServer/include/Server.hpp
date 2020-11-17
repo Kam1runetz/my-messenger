@@ -5,14 +5,14 @@
 
 #include <Connection.hpp>
 #include <ConnectionManager.hpp>
-#include <IRequestHandler.hpp>
+#include <ServersMiddleware.hpp>
 #include <boost/asio.hpp>
 #include <memory>
 
 class Server {
  public:
   explicit Server(const char address[], const char port[],
-                  IRequestHandler *requestHandler);
+                  ServersMiddleware *aMiddleware);
 
   Server(const Server &) = delete;
   Server &operator=(const Server &) = delete;
@@ -32,7 +32,7 @@ class Server {
   boost::asio::ip::tcp::acceptor acceptor;
 
   ConnectionManager connectionManager;
-  std::shared_ptr<IRequestHandler> requestHandler;
+  std::shared_ptr<ServersMiddleware> middleware;
   std::shared_ptr<Connection> newConnection;
 };
 

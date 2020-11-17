@@ -3,11 +3,10 @@
 #ifndef SERVER_CONNECTIONSERVER_INCLUDE_CONNECTION_HPP_
 #define SERVER_CONNECTIONSERVER_INCLUDE_CONNECTION_HPP_
 
-#include <IRequestHandler.hpp>
+#include <ServersMiddleware.hpp>
 #include <array>
 #include <boost/asio.hpp>
 #include <memory>
-#include <myprotocol.hpp>
 
 class ConnectionManager;
 
@@ -15,7 +14,7 @@ class Connection : public std::enable_shared_from_this<Connection> {
  public:
   explicit Connection(boost::asio::io_service &ioService,
                       ConnectionManager &manager,
-                      std::shared_ptr<IRequestHandler> requestHandler);
+                      const std::shared_ptr<ServersMiddleware> &aMiddleware);
   Connection(const Connection &) = delete;
   Connection &operator=(const Connection &) = delete;
 
@@ -33,9 +32,8 @@ class Connection : public std::enable_shared_from_this<Connection> {
 
   boost::asio::ip::tcp::socket socket;
   ConnectionManager &connectionManager;
-  std::shared_ptr<IRequestHandler> requestHandler;
-  std::array<std::uint8_t, sizeof(MyProtocolPkg)> buffer;
-  MyProtocolPkg response;
+  std::shared_ptr<ServersMiddleware> middleware;
+  std::array<std::uint8_t, ServersMiddleware::PackageSize> buffer;
 };
 
 #endif  // SERVER_CONNECTIONSERVER_INCLUDE_CONNECTION_HPP_

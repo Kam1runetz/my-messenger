@@ -2,15 +2,18 @@
 
 #include <Connection.hpp>
 #include <ConnectionManager.hpp>
+#include <ServersMiddleware.hpp>
 #include <boost/asio.hpp>
 #include <boost/bind.hpp>
+#include <memory>
 
 Connection::Connection(boost::asio::io_service &ioService,
                        ConnectionManager &manager,
-                       std::shared_ptr<IRequestHandler> requestHandler)
+                       const std::shared_ptr<ServersMiddleware> &aMiddleware)
     : socket(ioService),
       connectionManager(manager),
-      requestHandler(requestHandler) {}
+      middleware(aMiddleware),
+      buffer() {}
 
 boost::asio::ip::tcp::socket &Connection::Socket() { return socket; }
 
@@ -22,18 +25,15 @@ void Connection::Start() {
                   boost::asio::placeholders::bytes_transferred));
 }
 
-void Connection::Stop() {
-  socket.close();
-}
+void Connection::Stop() { socket.close(); }
 
 void Connection::handleRead(const boost::system::error_code &err,
                             std::size_t bytesTransferred) {
   if (!err) {
-    if (bytesTransferred != sizeof(MyProtocolPkg)) return;
-    MyProtocolPkg pkg = *reinterpret_cast<MyProtocolPkg *>(buffer.data());
-    requestHandler->HandleRequest(pkg, response);
+    if (bytesTransferred != ServersMiddleware::PackageSize) return;
+    auto toSendBuffer = middleware->ProcessData(buffer);
     boost::asio::async_write(
-        socket, boost::asio::buffer(&response, sizeof(MyProtocolPkg)),
+        socket, toSendBuffer,
         boost::bind(&Connection::handleWrite, shared_from_this(),
                     boost::asio::placeholders::error));
   } else if (err != boost::asio::error::operation_aborted) {
